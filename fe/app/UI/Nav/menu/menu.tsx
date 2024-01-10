@@ -1,44 +1,44 @@
-"use client";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect } from "react";
+'use client'
+import { Button, Checkbox, Label, TextInput } from 'flowbite-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import React, { useCallback, useEffect } from 'react'
 
 interface Erros {
-  username: string;
-  email: string;
-  phone: string;
-  password: string;
-  confirmPassword: string;
+  username: string
+  email: string
+  phone: string
+  password: string
+  confirmPassword: string
 }
 
 const Menu = () => {
-  const router = useRouter();
-  const [bg, setBg] = React.useState(false);
-  const [bg1, setBg1] = React.useState(false);
-  const [bg2, setBg2] = React.useState(false);
-  const [bg3, setBg3] = React.useState(false);
-  const [bg4, setBg4] = React.useState(false);
+  const router = useRouter()
+  const [bg, setBg] = React.useState(false)
+  const [bg1, setBg1] = React.useState(false)
+  const [bg2, setBg2] = React.useState(false)
+  const [bg3, setBg3] = React.useState(false)
+  const [bg4, setBg4] = React.useState(false)
 
-  const [username, setUserName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [errors] = React.useState<Erros>();
-  console.log("erro", errors);
+  const [username, setUserName] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
 
-  console.log("username", username);
+  const [phone, setPhone] = React.useState('')
+  const [errors, setErrors] = React.useState(false)
+  console.log('erro', errors)
 
-  const [login, setLogin] = React.useState(false);
+  console.log('username', username)
 
-  const [isFormValid, setIsFormValid] = React.useState(false);
+  const [login, setLogin] = React.useState(false)
 
-  const [clickLogin, setOnClickLogin] = React.useState(false);
-  const [clickSingup, setOnclickSingup] = React.useState(false);
+  const [isFormValid, setIsFormValid] = React.useState(false)
 
-  const [showModal, setShowModal] = React.useState(false);
+  const [clickLogin, setOnClickLogin] = React.useState(false)
+  const [clickSingup, setOnclickSingup] = React.useState(false)
+
+  const [showModal, setShowModal] = React.useState(false)
 
   // const validateForm = () => {
   //   const errors = { username, email, phone, password, confirmPassword };
@@ -76,260 +76,248 @@ const Menu = () => {
 
   const hanleClickSingup = () => {
     // validateForm()
-  };
+  }
 
   const handleSubmit = useCallback(async () => {
-    const res = await fetch("http://localhost:5000/api/creatuser", {
-      method: "POST",
+    const res = await fetch('http://localhost:5000/api/creatuser', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username: username,
         email: email,
         phone: phone,
         password: password,
-        confirmPassword: confirmPassword,
       }),
-    });
+    })
 
-    const json = await res.json();
-    console.log("json", json);
+    const json = await res.json()
+    console.log('json', json)
 
     if (json.success) {
-      setLogin(true);
-      router.push("/");
-      setShowModal(false);
+      setLogin(true)
+      router.push('/restaurents')
+      setShowModal(false)
+    } else {
+      setErrors(true)
+      alert('Account Invalid')
     }
-  }, []);
+  }, [email, username, phone, password, router])
 
   useEffect(() => {
-    setBg(true);
-    setOnClickLogin(true);
+    setBg(true)
+    setOnClickLogin(true)
 
     // validateForm()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   return (
-    <div className="flex justify-center mt-10">
-      <div className="w-[1528px] h-auto ">
-        <div className="flex justify-between items-center">
+    <div className='flex justify-center mt-10'>
+      <div className='w-[1528px] h-auto '>
+        <div className='flex justify-between items-center'>
           <Image
-            src={"/logo.png"}
-            alt=""
+            src={'/logo.png'}
+            alt=''
             width={215}
             height={53}
-            className="cursor-pointer"
+            className='cursor-pointer'
           />
-          <div className="flex gap-10 items-center">
+          <div className='flex gap-10 items-center'>
             <div
               className={`w-[127px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                bg && "bg-[#FC8A06]"
+                bg && 'bg-[#FC8A06]'
               } rounded-[120px] flex justify-center items-center ${
-                bg && "text-white font-normal text-lg leading-normal "
-              }`}
-            >
+                bg && 'text-white font-normal text-lg leading-normal '
+              }`}>
               <Link
-                href={"/"}
-                className="font-normal text-lg leading-normal "
+                href={'/'}
+                className='font-normal text-lg leading-normal '
                 onClick={() => {
-                  setBg(true);
-                  setBg1(false);
-                  setBg2(false);
-                  setBg3(false);
-                  setBg4(false);
-                }}
-              >
+                  setBg(true)
+                  setBg1(false)
+                  setBg2(false)
+                  setBg3(false)
+                  setBg4(false)
+                }}>
                 Home
               </Link>
             </div>
             <div
               className={`w-[170px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                bg1 && "bg-[#FC8A06]"
+                bg1 && 'bg-[#FC8A06]'
               } rounded-[120px] flex justify-center items-center ${
-                bg1 && "text-white font-normal text-lg leading-normal w-[170px]"
-              }`}
-            >
+                bg1 && 'text-white font-normal text-lg leading-normal w-[170px]'
+              }`}>
               <Link
-                href={"/restaurents"}
-                className="font-normal text-lg leading-normal"
+                href={'/restaurents'}
+                className='font-normal text-lg leading-normal'
                 onClick={() => {
-                  setBg1(true);
-                  setBg(false);
-                  setBg2(false);
-                  setBg3(false);
-                  setBg4(false);
-                }}
-              >
+                  setBg1(true)
+                  setBg(false)
+                  setBg2(false)
+                  setBg3(false)
+                  setBg4(false)
+                }}>
                 Browse Menu
               </Link>
             </div>
             <div
               className={`w-[170px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                bg2 && "bg-[#FC8A06]"
+                bg2 && 'bg-[#FC8A06]'
               } rounded-[120px] flex justify-center items-center ${
                 bg2 &&
-                "text-white font-normal text-lg leading-normal w-[170px] transition-transform "
-              }`}
-            >
+                'text-white font-normal text-lg leading-normal w-[170px] transition-transform '
+              }`}>
               <Link
-                href={"/restaurents"}
-                className="font-normal text-lg leading-normal"
+                href={'/restaurents'}
+                className='font-normal text-lg leading-normal'
                 onClick={() => {
-                  setBg2(true);
-                  setBg(false);
-                  setBg1(false);
-                  setBg3(false);
-                  setBg4(false);
-                }}
-              >
+                  setBg2(true)
+                  setBg(false)
+                  setBg1(false)
+                  setBg3(false)
+                  setBg4(false)
+                }}>
                 Special Offers
               </Link>
             </div>
             <div
               className={`w-[150px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                bg3 && "bg-[#FC8A06]"
+                bg3 && 'bg-[#FC8A06]'
               } rounded-[120px] flex justify-center items-center ${
-                bg3 && "text-white font-normal text-lg leading-normal"
-              }`}
-            >
+                bg3 && 'text-white font-normal text-lg leading-normal'
+              }`}>
               <Link
-                href={"/restaurents"}
-                className="font-normal text-lg leading-normal"
+                href={'/restaurents'}
+                className='font-normal text-lg leading-normal'
                 onClick={() => {
-                  setBg3(true);
-                  setBg1(false);
-                  setBg2(false);
-                  setBg(false);
-                  setBg4(false);
-                }}
-              >
+                  setBg3(true)
+                  setBg1(false)
+                  setBg2(false)
+                  setBg(false)
+                  setBg4(false)
+                }}>
                 Restaurants
               </Link>
             </div>
             <div
               className={`w-[150px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                bg4 && "bg-[#FC8A06]"
+                bg4 && 'bg-[#FC8A06]'
               } rounded-[120px] flex justify-center items-center ${
-                bg4 && "text-white font-normal text-lg leading-normal"
-              }`}
-            >
+                bg4 && 'text-white font-normal text-lg leading-normal'
+              }`}>
               <Link
-                href={"/restaurents"}
-                className="font-normal text-lg leading-normal"
+                href={'/restaurents'}
+                className='font-normal text-lg leading-normal'
                 onClick={() => {
-                  setBg4(true);
-                  setBg(false);
-                  setBg1(false);
-                  setBg2(false);
-                  setBg3(false);
-                }}
-              >
+                  setBg4(true)
+                  setBg(false)
+                  setBg1(false)
+                  setBg2(false)
+                  setBg3(false)
+                }}>
                 Track Order
               </Link>
             </div>
-            <div className="w-[234px] h-[60px] rounded-full bg-[#03081F] flex justify-center items-center cursor-pointer">
+            <div className='w-[234px] h-[60px] rounded-full bg-[#03081F] flex justify-center items-center cursor-pointer'>
               {!login && (
                 <>
                   <button
-                    className="flex items-center gap-3"
+                    className='flex items-center gap-3'
                     onClick={() => {
-                      setShowModal(true);
-                    }}
-                  >
+                      setShowModal(true)
+                    }}>
                     <Image
-                      src={"/nav/user.png"}
-                      alt=""
+                      src={'/nav/user.png'}
+                      alt=''
                       width={30.971}
                       height={27}
                     />
-                    <span className="text-white">Login/Signup</span>
+                    <span className='text-white'>Login/Signup</span>
                   </button>
                 </>
               )}
 
               {login && (
-                <span className="text-white font-bold underline leading-normal text-lg">
+                <span className='text-white font-bold underline leading-normal text-lg'>
                   Hi {username}
                 </span>
               )}
               {showModal ? (
                 <>
-                  <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                  <div className='justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'>
+                    <div className='relative w-auto my-6 mx-auto max-w-3xl'>
                       {/*content*/}
-                      <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                      <div className='border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none'>
                         {/*header*/}
-                        <div className="flex items-center justify-center p-5 border-b border-solid border-blueGray-200 rounded-t gap-8">
+                        <div className='flex items-center justify-center p-5 border-b border-solid border-blueGray-200 rounded-t gap-8'>
                           <button
                             className={`w-[150px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                              clickLogin && "bg-[#FC8A06]"
+                              clickLogin && 'bg-[#FC8A06]'
                             } rounded-[120px] flex justify-center items-center ${
                               clickLogin &&
-                              "text-white font-normal text-lg leading-normal"
+                              'text-white font-normal text-lg leading-normal'
                             }`}
                             onClick={() => {
-                              setOnClickLogin(true), setOnclickSingup(false);
-                            }}
-                          >
+                              setOnClickLogin(true), setOnclickSingup(false)
+                            }}>
                             Login
                           </button>
                           <button
                             className={`w-[150px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
-                              clickSingup && "bg-[#FC8A06]"
+                              clickSingup && 'bg-[#FC8A06]'
                             } rounded-[120px] flex justify-center items-center ${
                               clickSingup &&
-                              "text-white font-normal text-lg leading-normal"
+                              'text-white font-normal text-lg leading-normal'
                             }`}
                             onClick={() => {
-                              setOnclickSingup(true), setOnClickLogin(false);
-                            }}
-                          >
+                              setOnclickSingup(true), setOnClickLogin(false)
+                            }}>
                             SignUp
                           </button>
                         </div>
                         {/*body*/}
                         {clickLogin && (
-                          <div className="relative flex-auto my-20 mx-20">
+                          <div className='relative flex-auto my-20 mx-20'>
                             <form
-                              action=""
-                              method="GET"
+                              action=''
+                              method='GET'
                               // onSubmit={handleSubmit}
                             >
-                              <div className="flex flex-col gap-4">
-                                <div className="flex gap-3 justify-center items-center my-2 mx-3">
-                                  <span className=" text-base font-semibold leading-normal">
+                              <div className='flex flex-col gap-4'>
+                                <div className='flex gap-3 justify-center items-center my-2 mx-3'>
+                                  <span className=' text-base font-semibold leading-normal'>
                                     Username
                                   </span>
                                   <input
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    placeholder="username"
-                                    className="w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                    type='text'
+                                    name=''
+                                    id=''
+                                    placeholder='username'
+                                    className='w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   />
                                 </div>
-                                <div className="w-full flex gap-3 justify-center items-center">
-                                  <span className=" text-base font-semibold leading-normal">
+                                <div className='w-full flex gap-3 justify-center items-center'>
+                                  <span className=' text-base font-semibold leading-normal'>
                                     Password
                                   </span>
 
                                   <input
-                                    type="password"
-                                    name=""
-                                    id=""
-                                    placeholder="*********"
-                                    className="w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                    type='password'
+                                    name=''
+                                    id=''
+                                    placeholder='*********'
+                                    className='w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   />
                                 </div>
-                                <span className="text-red-500 hover:underline cursor-pointer text-base font-semibold leading-normal flex justify-end">
+                                <span className='text-red-500 hover:underline cursor-pointer text-base font-semibold leading-normal flex justify-end'>
                                   Forget Password
                                 </span>
                                 <button
-                                  className="bg-[#FC8A06] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5"
-                                  type="button"
-                                >
+                                  className='bg-[#FC8A06] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5'
+                                  type='button'>
                                   Login
                                 </button>
                               </div>
@@ -337,136 +325,115 @@ const Menu = () => {
                           </div>
                         )}
                         {clickSingup && (
-                          <div className="relative my-20 mx-40">
+                          <div className='relative my-20 mx-40'>
                             <form
-                              className="flex max-w-md flex-col gap-4"
+                              className='flex max-w-md flex-col gap-4'
                               onSubmit={handleSubmit}
-                              method="GET"
-                            >
-                              <div className="flex flex-col gap-3">
-                                <span className=" text-base font-semibold leading-normal">
+                              // action={handleSubmit}
+                              method='GET'>
+                              <div className='flex flex-col gap-3'>
+                                <span className=' text-base font-semibold leading-normal'>
                                   Email
                                 </span>
                                 <input
-                                  type="email"
-                                  name="email"
-                                  id="email"
-                                  placeholder="your@gmail.com"
-                                  className="w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                  type='email'
+                                  name='email'
+                                  id='email'
+                                  placeholder='your@gmail.com'
+                                  className='w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   onChange={(e) => {
-                                    setEmail(e.target.value);
+                                    setEmail(e.target.value)
                                   }}
                                 />
-                                {errors?.email && (
-                                  <p className="text-red-500 font-normal text-sm mt-2">
-                                    {errors.email}
+                                {errors && (
+                                  <p className='text-red-500 font-normal text-sm mt-2'>
+                                    {'Account Invalid'}
                                   </p>
                                 )}
                               </div>
-                              <div className="flex flex-col gap-3">
-                                <span className=" text-base font-semibold leading-normal">
+                              <div className='flex flex-col gap-3'>
+                                <span className=' text-base font-semibold leading-normal'>
                                   Phone
                                 </span>
                                 <input
-                                  type="phone"
-                                  name="phone"
-                                  id="phone"
-                                  placeholder="+84 ......"
-                                  className="w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                  type='phone'
+                                  name='phone'
+                                  id='phone'
+                                  placeholder='+84 ......'
+                                  className='w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   onChange={(e) => {
-                                    setPhone(e.target.value);
+                                    setPhone(e.target.value)
                                   }}
                                 />
-                                {errors?.phone && (
-                                  <p className="text-red-500 font-normal text-sm mt-2">
-                                    {errors.phone}
+                                {errors && (
+                                  <p className='text-red-500 font-normal text-sm mt-2'>
+                                    {'Account Invalid'}
                                   </p>
                                 )}
                               </div>
-                              <div className="flex flex-col gap-3">
-                                <span className=" text-base font-semibold leading-normal">
+                              <div className='flex flex-col gap-3'>
+                                <span className=' text-base font-semibold leading-normal'>
                                   Username
                                 </span>
-                                {errors?.username && (
-                                  <p className="text-red-500 font-normal text-sm mt-2">
-                                    {errors.username}
+                                {errors && (
+                                  <p className='text-red-500 font-normal text-sm mt-2'>
+                                    {'Account Invalid'}
                                   </p>
                                 )}
                                 <input
-                                  type="text"
-                                  name="username"
-                                  id="username"
-                                  placeholder=""
-                                  className="w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                  type='text'
+                                  name='username'
+                                  id='username'
+                                  placeholder=''
+                                  className='w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   onChange={(e) => {
-                                    setUserName(e.target.value);
+                                    setUserName(e.target.value)
                                   }}
                                 />
                               </div>
-                              <div className="flex flex-col gap-3">
-                                <span className=" text-base font-semibold leading-normal">
+                              <div className='flex flex-col gap-3'>
+                                <span className=' text-base font-semibold leading-normal'>
                                   Password
                                 </span>
                                 <input
-                                  type="password"
-                                  name="password"
-                                  id="password"
-                                  placeholder="*********"
-                                  className="w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
+                                  type='password'
+                                  name='password'
+                                  id='password'
+                                  placeholder='*********'
+                                  className='w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
                                   onChange={(e) => {
-                                    setPassword(e.target.value);
+                                    setPassword(e.target.value)
                                   }}
                                 />
-                                {errors?.password && (
-                                  <p className="text-red-500 font-normal text-sm mt-2">
-                                    {errors.password}
+                                {errors && (
+                                  <p className='text-red-500 font-normal text-sm mt-2'>
+                                    {'Account Invalid'}
                                   </p>
                                 )}
                               </div>
-                              <div className="flex flex-col gap-3">
-                                <span className=" text-base font-semibold leading-normal">
-                                  Confirm Password
-                                </span>
-                                <input
-                                  type="password"
-                                  name=""
-                                  id=""
-                                  placeholder="*********"
-                                  className="w-72 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg"
-                                  onChange={(e) => {
-                                    setConfirmPassword(e.target.value);
-                                  }}
-                                />
-                                {errors?.confirmPassword && (
-                                  <p className="text-red-500 font-normal text-sm mt-2">
-                                    {errors.confirmPassword}
-                                  </p>
-                                )}
-                              </div>
+
                               <button
                                 className={`  bg-[#FC8A06] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5`}
-                                type="submit"
-                                onClick={hanleClickSingup}
-                              >
+                                type='submit'
+                                onClick={hanleClickSingup}>
                                 Signup
                               </button>
                             </form>
                           </div>
                         )}
                         {/*footer*/}
-                        <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
+                        <div className='flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b'>
                           <button
-                            className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                            onClick={() => setShowModal(false)}
-                          >
+                            className='text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150'
+                            type='button'
+                            onClick={() => setShowModal(false)}>
                             Close
                           </button>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+                  <div className='opacity-25 fixed inset-0 z-40 bg-black'></div>
                 </>
               ) : null}
             </div>
@@ -474,7 +441,7 @@ const Menu = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Menu;
+export default Menu
