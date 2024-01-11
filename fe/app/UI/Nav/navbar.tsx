@@ -5,8 +5,8 @@ import Menu from "./menu/menu";
 const Navbar = () => {
   return (
     <>
-      <div className="flex justify-center">
-        <div className="w-[1528px] h-[70px] flex-shrink-0 bg-[#FAFAFA] rounded-b-2xl">
+      <div className="flex justify-center ">
+        <div className="w-[1528px] h-[70px] flex-shrink-0 bg-[#FAFAFA] rounded-b-2xl ">
           <div className="flex justify-between">
             <div className="flex items-center ml-4 gap-3">
               <h1>🌟</h1>
