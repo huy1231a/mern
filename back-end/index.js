@@ -5,6 +5,7 @@ const port = 5000
 const mongoose = require('mongoose')
 
 const createUser = require('./Routes/CreateUser')
+const login = require('./Routes/Login')
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -25,6 +26,7 @@ app.get('/', (req, res) => {
 // app.use(express.json())
 
 app.use('/api', createUser)
+app.use('', login)
 
 mongoose
   .connect(

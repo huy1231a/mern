@@ -1,16 +1,12 @@
 'use client'
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import React, { useCallback, useEffect } from 'react'
 
 interface Erros {
-  username: string
-  email: string
-  phone: string
-  password: string
-  confirmPassword: string
+  text: string
 }
 
 const Menu = () => {
@@ -26,10 +22,12 @@ const Menu = () => {
   const [password, setPassword] = React.useState('')
 
   const [phone, setPhone] = React.useState('')
-  const [errors, setErrors] = React.useState(false)
+  const [errors, setErrors] = React.useState('')
+  const [loginFail, setLoginFail] = React.useState(false)
   console.log('erro', errors)
 
   console.log('username', username)
+  console.log('password', password)
 
   const [login, setLogin] = React.useState(false)
 
@@ -74,11 +72,38 @@ const Menu = () => {
   //   setIsFormValid(Object.keys(errors).length === 0);
   // };
 
+  const handleSubmitLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('data', data)
+        setLogin(true) // Update the state to reflect the logged-in state
+        setShowModal(false)
+        router.push('/restaurents')
+      } else {
+        setLoginFail(true)
+        console.error('Login failed')
+        setErrors('UserName Or Password incorrect')
+      }
+    } catch (error) {
+      console.error('Error during login', error)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }
+
   const hanleClickSingup = () => {
     // validateForm()
   }
 
-  const handleSubmit = useCallback(async () => {
+  const handleSubmit = async () => {
     const res = await fetch('http://localhost:5000/api/creatuser', {
       method: 'POST',
       headers: {
@@ -100,10 +125,10 @@ const Menu = () => {
       router.push('/restaurents')
       setShowModal(false)
     } else {
-      setErrors(true)
+      setErrors('')
       alert('Account Invalid')
     }
-  }, [email, username, phone, password, router])
+  }
 
   useEffect(() => {
     setBg(true)
@@ -117,13 +142,15 @@ const Menu = () => {
     <div className='flex justify-center mt-10'>
       <div className='w-[1528px] h-auto '>
         <div className='flex justify-between items-center'>
-          <Image
-            src={'/logo.png'}
-            alt=''
-            width={215}
-            height={53}
-            className='cursor-pointer'
-          />
+          <Link href={'/'}>
+            <Image
+              src={'/logo.png'}
+              alt=''
+              width={215}
+              height={53}
+              className='cursor-pointer'
+            />
+          </Link>
           <div className='flex gap-10 items-center'>
             <div
               className={`w-[127px] h-[45px] flex-shrink-0 transition duration-300 ease-in-out hover:scale-110 ${
@@ -241,9 +268,32 @@ const Menu = () => {
               )}
 
               {login && (
-                <span className='text-white font-bold underline leading-normal text-lg'>
-                  Hi {username}
-                </span>
+                <>
+                  <div className='flex items-center'>
+                    <Link href={'/'}>
+                      <div
+                        className='flex items-center gap-2'
+                        onClick={() => {
+                          setLogin(false)
+                        }}>
+                        <span className='text-white font-bold leading-normal text-lg'>
+                          Hi{' '}
+                          <span className='underline text-lg font-semibold text-white'>
+                            {username}
+                          </span>
+                        </span>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          height='16'
+                          width='16'
+                          viewBox='0 0 512 512'
+                          fill='white'>
+                          <path d='M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z' />
+                        </svg>
+                      </div>
+                    </Link>
+                  </div>
+                </>
               )}
               {showModal ? (
                 <>
@@ -282,10 +332,8 @@ const Menu = () => {
                         {clickLogin && (
                           <div className='relative flex-auto my-20 mx-20'>
                             <form
-                              action=''
-                              method='GET'
-                              // onSubmit={handleSubmit}
-                            >
+                              // action={() => handleSubmitLogin}
+                              method='POST'>
                               <div className='flex flex-col gap-4'>
                                 <div className='flex gap-3 justify-center items-center my-2 mx-3'>
                                   <span className=' text-base font-semibold leading-normal'>
@@ -297,8 +345,12 @@ const Menu = () => {
                                     id=''
                                     placeholder='username'
                                     className='w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
+                                    onChange={(e) => {
+                                      setUserName(e.target.value)
+                                    }}
                                   />
                                 </div>
+                                {loginFail && <p>{errors}</p>}
                                 <div className='w-full flex gap-3 justify-center items-center'>
                                   <span className=' text-base font-semibold leading-normal'>
                                     Password
@@ -310,6 +362,9 @@ const Menu = () => {
                                     id=''
                                     placeholder='*********'
                                     className='w-56 h-5 border border-slate-300 rounded-lg p-5 outline-none shadow-lg'
+                                    onChange={(e) => {
+                                      setPassword(e.target.value)
+                                    }}
                                   />
                                 </div>
                                 <span className='text-red-500 hover:underline cursor-pointer text-base font-semibold leading-normal flex justify-end'>
@@ -317,7 +372,8 @@ const Menu = () => {
                                 </span>
                                 <button
                                   className='bg-[#FC8A06] text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 mt-5'
-                                  type='button'>
+                                  type='button'
+                                  onClick={handleSubmitLogin}>
                                   Login
                                 </button>
                               </div>
