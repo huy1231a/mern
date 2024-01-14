@@ -5,7 +5,7 @@ import Service from './service'
 const Footer = () => {
   return (
     <>
-      <div className='w-full h-[371px] bg-[#D9D9D9]'>
+      <div className='w-full h-[371px] bg-[#D9D9D9] mt-10'>
         <div className='p-8 flex justify-between items-center'>
           <div className='flex flex-col p-8 gap-8 cursor-pointer'>
             <Image src={'/logo1.png'} alt='2' width={268} height={66} />

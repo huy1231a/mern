@@ -1,7 +1,12 @@
 import React from "react";
+import BannerRes from "../UI/Restaurent/banner";
 
 const Restaurants = () => {
-  return <div>Restaurants</div>;
+  return (
+    <>
+      <BannerRes />
+    </>
+  );
 };
 
 export default Restaurants;
