@@ -1,12 +1,12 @@
-import React from "react";
-import BannerRes from "../UI/Restaurent/banner";
+import React from 'react'
+import Res from '../UI/Restaurent/Res'
 
 const Restaurants = () => {
   return (
     <>
-      <BannerRes />
+      <Res />
     </>
-  );
-};
+  )
+}
 
-export default Restaurants;
+export default Restaurants
