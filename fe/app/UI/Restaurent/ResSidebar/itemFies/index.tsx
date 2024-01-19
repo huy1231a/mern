@@ -2,41 +2,41 @@ import { Product, Props } from '@/app/common/product'
 import Image from 'next/image'
 import React from 'react'
 
-const Burgers = () => {
+const Fries = () => {
   const data: Props[] = [
     {
       title: 'Royal Cheese Burger with extra Fries',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium',
     },
     {
       title: 'The classics for 3',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium sized French Fries , 3 cold drinks',
     },
     {
       title: 'Royal Cheese Burger with extra Fries',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium',
     },
     {
       title: 'Royal Cheese Burger with extra Fries',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium',
     },
     {
       title: 'Royal Cheese Burger with extra Fries',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium',
     },
     {
       title: 'Royal Cheese Burger with extra Fries',
-      img: '/resLayout/pro1.png',
+      img: '/resLayout/pro3.png',
       price: '23.10',
       pro: '1 McChicken™, 1 Big Mac™,  1 Royal Cheeseburger, 3 medium',
     },
@@ -44,7 +44,9 @@ const Burgers = () => {
   return (
     <div className='flex justify-center mt-14'>
       <div className='w-[1549px] h-auto'>
-        <h1 className='text-[44px] leading-6 font-bold'>Burgers</h1>
+        <h1 className='text-[44px] leading-6 font-bold text-[#FC8A06]'>
+          Fries
+        </h1>
         <div className='grid grid-cols-3 gap-4 mt-10'>
           {data.map((item) => (
             // eslint-disable-next-line react/jsx-key
@@ -61,4 +63,4 @@ const Burgers = () => {
   )
 }
 
-export default Burgers
+export default Fries

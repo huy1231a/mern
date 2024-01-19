@@ -2,6 +2,8 @@
 import Image from 'next/image'
 import React from 'react'
 import Burgers from './itemBurgers'
+import Fries from './itemFies'
+import Cold from './itemColdDrinks'
 
 interface Menu {
   id: number
@@ -16,10 +18,6 @@ const Sidebar = () => {
     },
     {
       id: 2,
-      name: 'Burgers',
-    },
-    {
-      id: 3,
       name: 'Burgers',
     },
     {
@@ -101,8 +99,8 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <div className='w-full h-[96px] bg-[#0000001A]'>
-        <div className='p-9'>
+      <div className='w-full h-[100px] bg-[#0000001A]'>
+        <div className='p-7'>
           <div className='flex justify-around items-center '>
             {menu.map((item: Menu) => (
               <>
@@ -199,7 +197,10 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      <Burgers />
+      {active === 1 || 2 ? <Burgers /> : <></>}
+
+      {active === 4 && <Fries />}
+      {active === 5 && <Cold />}
     </>
   )
 }

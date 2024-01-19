@@ -3,7 +3,7 @@ import { SideBarMenu } from '@/app/common/saldBar'
 import Image from 'next/image'
 import React from 'react'
 
-const data = [
+export const data = [
   {
     img: '/sale/r28.png',
     title: 'Burgers & Fast food',
@@ -36,7 +36,7 @@ const data = [
   },
 ]
 
-const dataRes = [
+export const dataRes = [
   {
     img: '/res/res1.png',
     title: 'McDonald’s London',
